@@ -19,3 +19,8 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+# We don't use npm
+package-lock.json
+# We use yarn in this house
+!yarn.lock
