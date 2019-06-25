@@ -1,5 +1,5 @@
 <template>
-    <div></div>
+    <div>contest block</div>
 </template>
 
 <style lang="postcss">

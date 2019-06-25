@@ -1,5 +1,5 @@
 <template>
-    <div class="cardy w-full">
+    <div class="cardy">
         <div class="banner"></div>
         <img
             class="pfp"

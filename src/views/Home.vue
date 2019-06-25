@@ -13,9 +13,13 @@
     </div>
 </template>
 
+<style lang="postcss">
+</style>
+
 <script>
-import Post from '../components/Post.vue'
-import User from '../components/User.vue'
+import Post from '@/components/content/Post.vue'
+import User from '@/components/user/UserCard.vue'
+
 export default {
     components: {
         Post,

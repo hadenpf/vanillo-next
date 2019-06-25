@@ -1,4 +1,7 @@
+import Vue from 'vue'
 import VueRouter from 'vue-router'
+
+Vue.use(VueRouter)
 
 export default new VueRouter({
     mode: 'history',
@@ -6,6 +9,10 @@ export default new VueRouter({
         {
             path: '/',
             component: () => import('@/views/Home')
+        },
+        {
+            path: '*',
+            redirect: '/'
         }
     ]
 })

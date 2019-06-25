@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <site-header/>
-        <router-view></router-view>
+        <router-view/>
     </div>
 </template>
 
@@ -9,6 +9,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@tailwind screens;
 
 body {
     @apply bg-gray-100;
@@ -17,9 +18,8 @@ body {
 
 <script>
 export default {
-    name: 'app',
     components: {
-        SiteHeader: () => import('@/components/Header')
+        SiteHeader: () => import('./Header')
     }
 }
 </script>
