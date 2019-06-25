@@ -8,7 +8,7 @@
         >
         <div class="content">
             <h1>
-                <span>Sock</span>
+                <span class="text-2xl">Sock</span>
                 <span class="status online"></span>
             </h1>
             <h4>150 posts</h4>
@@ -19,7 +19,7 @@
 
 <style lang="postcss">
 .cardy {
-    @apply flex w-64 bg-white text-gray-800 flex-col shadow-lg;
+    @apply flex bg-white text-gray-800 flex-col shadow-lg;
 
     min-height: theme("spacing.32");
 
@@ -28,7 +28,7 @@
     }
 
     .pfp {
-        @apply mx-auto bg-gray-400 rounded-full h-20 w-20 -mt-10 border-green-500 border-2 border-solid;
+        @apply mx-auto bg-gray-400 rounded-full h-24 w-24 -mt-10 border-green-500 border-2 border-solid;
     }
 
     .content {
