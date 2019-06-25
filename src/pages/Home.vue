@@ -8,7 +8,7 @@
             <div class="mx-auto w-full p-2">
                 <Post/>
             </div>
-            <div class="w-full lg:w-3/5 p-2">e</div>
+            <div class="w-full lg:w-3/5 p-2"></div>
         </div>
     </div>
 </template>
