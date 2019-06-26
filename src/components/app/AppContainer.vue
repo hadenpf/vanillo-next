@@ -12,7 +12,15 @@
 @tailwind screens;
 
 body {
-    @apply bg-gray-100;
+    @apply font-body bg-gray-100 text-gray-800;
+}
+
+.card {
+    @apply mb-4 rounded-lg shadow-lg bg-white text-gray-800;
+
+    &.dark {
+        @apply bg-gray-800 text-gray-200;
+    }
 }
 </style>
 
@@ -20,6 +28,14 @@ body {
 export default {
     components: {
         SiteHeader: () => import('./Header')
+    },
+    mounted() {
+        this.$store.commit('cacheUser', {
+            id: 1,
+            name: 'Sock',
+            avatarUrl: 'https://cdn.discordapp.com/attachments/487853954185822208/592912660492976128/unknown.png',
+            status: 'online'
+        })
     }
 }
 </script>

@@ -1,10 +1,10 @@
 <template>
-    <nav class="header">
+    <nav class="page-header">
         <div class="header-container container">
-            <div class="flex items-center flex-shrink-0 text-yellow-500 mr-6 w-32">
-                <img src="@/assets/logo.png" style="padding: 5px;">
+            <div class="header-brand">
+                <img src="@/assets/logo.png">
             </div>
-            <div class="block lg:hidden">
+            <div class="lg:hidden">
                 <button
                     @click="toggle"
                     class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white"
@@ -34,10 +34,9 @@
                     >
                 </div>
                 <div class="w-32">
-                    <a
-                        href="#"
-                        class="inline-block text-sm px-4 py-2 leading-none border text-yellow-500 border-yellow-500 hover:border-transparent hover:text-white hover:bg-yellow-500 mt-4 lg:mt-0 lg:float-right"
-                    >Login</a>
+                    <router-link to>
+                        <app-button class="login-button">Log in</app-button>
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -45,12 +44,20 @@
 </template>
 
 <style lang="postcss">
-nav.header {
-    @apply bg-white p-2 shadow-lg;
-}
+.page-header {
+    @apply bg-white p-3 shadow-lg;
 
-.header-container {
-    @apply flex items-center justify-between flex-wrap mx-auto;
+    .header-container {
+        @apply flex items-center justify-between flex-wrap mx-auto;
+
+        .header-brand {
+            @apply flex items-center flex-shrink-0 text-yellow-500 mr-6 w-32;
+        }
+
+        .login-button {
+            @apply bg-yellow-400;
+        }
+    }
 }
 </style>
 

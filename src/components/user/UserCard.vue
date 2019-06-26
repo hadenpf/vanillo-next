@@ -1,16 +1,12 @@
 <template>
-    <div class="cardy">
-        <div class="banner"></div>
-        <img
-            class="pfp"
-            src="https://cdn.discordapp.com/attachments/487853954185822208/592912660492976128/unknown.png"
-            alt
-        >
+    <div class="card user-card">
+        <div class="banner">
+            <img src="@/assets/testbanner2.png" alt>
+        </div>
+        <user-avatar :user="user"/>
         <div class="content">
-            <h1>
-                <span class="text-2xl">Sock</span>
-                <span class="status online"></span>
-            </h1>
+            <span class="text-2xl font-semibold">{{ user.name }}</span>
+            <span class="status" :class="`${user.status}`"></span>
             <h4>150 posts</h4>
             <h4>2.3K followers</h4>
         </div>
@@ -18,17 +14,19 @@
 </template>
 
 <style lang="postcss">
-.cardy {
-    @apply flex bg-white text-gray-800 flex-col shadow-lg;
-
-    min-height: theme("spacing.32");
+.user-card {
+    @apply flex flex-col bg-white text-gray-800 shadow-lg rounded-lg;
 
     .banner {
-        @apply w-full pt-32 flex bg-gray-700;
+        @apply flex w-full h-32 bg-gray-400 rounded-t-lg overflow-hidden;
+
+        img {
+            @apply min-w-full min-h-full m-auto;
+        }
     }
 
-    .pfp {
-        @apply mx-auto bg-gray-400 rounded-full h-24 w-24 -mt-10 border-green-500 border-2 border-solid;
+    .avatar {
+        @apply relative mx-auto bg-gray-400 rounded-full h-24 w-24 -mt-10 border-green-500 border-2 border-solid;
     }
 
     .content {
@@ -55,6 +53,14 @@
 
 <script>
 export default {
-    
+    props: [
+        'user'
+    ],
+    components: {
+        UserAvatar: () => import('@/components/user/UserAvatar')
+    },
+    computed: {
+
+    }
 }
 </script>
