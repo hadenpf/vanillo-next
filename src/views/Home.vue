@@ -5,44 +5,18 @@
             <trending-card/>
         </div>
         <div class="wrapper main">
-            <user-post>
-                <template
-                    v-slot:text
-                >Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby!</template>
-            </user-post>
-            <user-post type="short">
-                <template v-slot:text>I love gaming!</template>
-            </user-post>
-            <user-post type="short">
-                <template v-slot:text>Post with comment</template>
-                <template v-slot:embed>
-                    <img
-                        src="https://cdn.discordapp.com/attachments/487853954185822208/592911420811771938/maxresdefault_1.jpg"
-                    >
-                </template>
-            </user-post>
-            <user-post>
-                <template v-slot:text>
-                    Post with long comment
-                    Post with long comment
-                    Post with long comment
-                    Post with long comment
-                    Post with long comment
-                    Post with long comment
-                </template>
-                <template v-slot:embed>
-                    <img
-                        src="https://cdn.discordapp.com/attachments/487853954185822208/592911420811771938/maxresdefault_1.jpg"
-                    >
-                </template>
-            </user-post>
-            <user-post type="content">
-                <template v-slot:embed>
-                    <img
-                        src="https://cdn.discordapp.com/attachments/487853954185822208/592911420811771938/maxresdefault_1.jpg"
-                    >
-                </template>
-            </user-post>
+            <template v-for="(post, index) in posts">
+                <user-post
+                    :key="index"
+                    :type="(post.text && post.text.length <= 20 ? 'short' : '')
+                    + (!post.text && post.image ? 'content' : '')"
+                >
+                    <template v-slot:text v-if="post.text">{{ post.text }}</template>
+                    <template v-slot:embed v-if="post.image">
+                        <img :src="post.image" alt>
+                    </template>
+                </user-post>
+            </template>
         </div>
         <div class="wrapper right">right side content!</div>
     </div>
@@ -72,6 +46,32 @@
 <script>
 
 export default {
+    data: () => ({
+        posts: [
+            {
+                text: 'Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby!'
+            },
+            {
+                text: 'I love gaming!'
+            },
+            {
+                text: 'Post with comment',
+                image: 'https://cdn.discordapp.com/attachments/487853954185822208/592911420811771938/maxresdefault_1.jpg'
+            },
+            {
+                text: `Post with long comment
+Post with long comment
+Post with long comment
+Post with long comment
+Post with long comment
+Post with long comment`,
+                image: 'https://cdn.discordapp.com/attachments/487853954185822208/592911420811771938/maxresdefault_1.jpg'
+            },
+            {
+                image: 'https://cdn.discordapp.com/attachments/487853954185822208/592911420811771938/maxresdefault_1.jpg'
+            }
+        ]
+    }),
     components: {
         UserPost: () => import('@/components/content/Post'),
         UserCard: () => import('@/components/user/UserCard'),
@@ -79,3 +79,4 @@ export default {
     }
 }
 </script>
+

@@ -1,6 +1,6 @@
 <template>
-    <button class="button">
-        <span class="button-content">
+    <button :tabindex="nofocus ? '-1' : ''" class="button">
+        <span tabindex="-1" class="button-content">
             <slot/>
         </span>
     </button>
@@ -8,10 +8,10 @@
 
 <style lang="postcss">
 .button {
-    @apply bg-gray-200 text-gray-800 font-medium rounded-full flex overflow-hidden;
+    @apply bg-gray-200 text-gray-800 font-medium rounded-full flex overflow-hidden appearance-none;
 
     .button-content {
-        @apply w-full h-full py-1 px-4 flex;
+        @apply w-full h-full py-1 px-4 inline-block;
 
         transition: all 0.125s ease;
     }
@@ -34,6 +34,8 @@
 
 <script>
 export default {
-    
+    props: [
+        'nofocus'
+    ]
 }
 </script>

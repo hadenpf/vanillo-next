@@ -80,8 +80,8 @@ export default {
                     description: 'YouTuber Etika was found deceased.'
                 },
                 {
-                    title: 'Vanillo',
-                    description: 'Vanillo has been re-released with a new look and feel!'
+                    title: 'SECRET PLATFORM',
+                    description: 'SECRET PLATFORM has been re-released and is better than ever!'
                 },
                 {
                     title: 'Etika',
@@ -89,7 +89,7 @@ export default {
                 },
                 {
                     title: 'Gaming',
-                    description: 'Gaming has become the most posted-about topic on Vanillo.'
+                    description: 'Gaming has become the most posted-about topic on SECRET PLATFORM.'
                 }
             ]
         }

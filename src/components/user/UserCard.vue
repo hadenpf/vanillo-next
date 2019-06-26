@@ -1,9 +1,9 @@
 <template>
     <div class="card user-card">
         <div class="banner">
-            <img src="@/assets/testbanner2.png" alt>
+            <img src="@/assets/testbanner.jpg" alt>
         </div>
-        <user-avatar :user="user"/>
+        <user-avatar :user="user" :status="false"/>
         <div class="content">
             <span class="text-2xl font-semibold">{{ user.name }}</span>
             <span class="status" :class="`${user.status}`"></span>

@@ -36,6 +36,12 @@ export default {
             avatarUrl: 'https://cdn.discordapp.com/attachments/487853954185822208/592912660492976128/unknown.png',
             status: 'online'
         })
+        this.$store.commit('cacheUser', {
+            id: 2,
+            name: 'hando',
+            avatarUrl: 'https://cdn.discordapp.com/avatars/377638029008830466/e2362dfd4167c5b1189012b46ded3d92.png',
+            status: 'offline'
+        })
     }
 }
 </script>

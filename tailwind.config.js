@@ -4,7 +4,7 @@ module.exports = {
     important: true,
     theme: {
         fontFamily: {
-            body: ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif'],
+            body: ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif', '"Font Awesome 5 Free"'],
             inherit: ['inherit']
         },
         extend: {

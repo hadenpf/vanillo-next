@@ -1,17 +1,26 @@
 <template>
     <div class="card post" :class="{padded: allPadded, reverse: reverseElements, dark}">
         <div class="post-header" :class="{padded: headerPadded}">
-            <div class="post-user-info">
+            <div class="post-meta">
                 <img
                     class="avatar"
                     src="https://cdn.discordapp.com/attachments/487853954185822208/592912660492976128/unknown.png"
                     alt
                 >
-                <span class="username">Sock</span>
+                <div class="post-meta-text">
+                    <span class="username">Sock</span>
+                    <span>
+                        <span class="timestamp">2 days ago</span>
+                        <span class="location">
+                            <i class="fas fa-map-marker-alt"></i> Gaming, KS
+                        </span>
+                    </span>
+                </div>
             </div>
             <div class="post-button-group">
                 <span class="post-button like" :class="{ active: liked }" @click="liked = !liked">
                     <i class="fas fa-heart"></i>
+                    <span class="count">2.3K</span>
                 </span>
                 <span
                     class="post-button repost"
@@ -19,6 +28,7 @@
                     @click="reposted = !reposted"
                 >
                     <i class="fas fa-share"></i>
+                    <span class="count">2</span>
                 </span>
                 <span class="post-button">
                     <i class="fas fa-ellipsis-v"></i>
@@ -83,12 +93,8 @@
             @apply flex-row;
         }
 
-        .post-user-info {
+        .post-meta {
             @apply flex flex-row items-center mx-auto;
-
-            @screen sm {
-                @apply mx-0;
-            }
 
             @screen sm {
                 @apply mx-0;
@@ -98,8 +104,23 @@
                 @apply bg-gray-400 rounded-full h-12 w-12 border-green-500 border-2 border-solid;
             }
 
-            .username {
-                @apply pl-2 text-lg font-semibold;
+            .post-meta-text {
+                @apply flex flex-col align-top pl-2 leading-tight;
+
+                .username {
+                    @apply text-lg font-semibold;
+                }
+
+                .timestamp {
+                    @apply uppercase text-xs text-gray-600 tracking-wider;
+                }
+
+                .location {
+                    @apply uppercase text-xs text-blue-500 tracking-wider ml-3;
+
+                    i {
+                    }
+                }
             }
         }
 
@@ -111,9 +132,19 @@
             }
 
             .post-button {
-                @apply flex border-solid border-2 border-gray-100 text-gray-600 rounded-full w-10 h-10;
+                @apply flex border-solid border-2 border-gray-100 px-3 text-gray-600 rounded-full h-10;
+
+                min-width: theme("width.10");
 
                 transition: all 0.125s ease;
+
+                .count {
+                    @apply my-auto ml-2;
+                }
+
+                i {
+                    @apply m-auto;
+                }
 
                 &.like {
                     &:hover {
@@ -126,6 +157,10 @@
 
                     &.active {
                         @apply bg-red-600 text-gray-100;
+
+                        i {
+                            animation: 0.4s ease like-animation;
+                        }
                     }
                 }
 
@@ -144,7 +179,7 @@
                 }
 
                 &:hover {
-                    @apply bg-gray-200 cursor-pointer border-0;
+                    @apply bg-gray-200 cursor-pointer;
                 }
 
                 &:active {
@@ -153,10 +188,6 @@
 
                 &:not(:last-of-type) {
                     @apply mr-2;
-                }
-
-                i {
-                    @apply m-auto;
                 }
             }
         }
@@ -173,6 +204,20 @@
         video {
             @apply rounded-lg;
         }
+    }
+}
+
+@keyframes like-animation {
+    0% {
+        @apply text-inherit;
+    }
+
+    50% {
+        @apply text-red-400;
+    }
+
+    100% {
+        @apply text-inherit;
     }
 }
 </style>
@@ -213,10 +258,7 @@ export default {
             return false
         },
         bigText() {
-            console.log(this.$slots['text'])
-
             return (
-                // !this.isCombined &&
                 this.$slots['text'] &&
                 this.$slots['text'][0].text.length <= 50
             )
