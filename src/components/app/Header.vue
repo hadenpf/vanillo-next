@@ -57,12 +57,20 @@ nav {
             .header-brand,
             .header-right {
                 @apply hidden;
+
+                @screen md {
+                    @apply flex;
+                }
             }
 
             .header-main {
                 .search-bar-wrapper {
                     &.open {
                         @apply w-full;
+
+                        @screen md {
+                            @apply w-1/2;
+                        }
                     }
                 }
             }
@@ -99,7 +107,7 @@ nav {
                 }
 
                 .search-collapse-icon {
-                    @apply my-auto mr-3 cursor-pointer inline-block;
+                    @apply my-auto ml-1 mr-3 cursor-pointer inline-block;
 
                     @screen md {
                         @apply invisible;
