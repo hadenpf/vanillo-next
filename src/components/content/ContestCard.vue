@@ -19,7 +19,7 @@
 
 <style lang="postcss">
 .monthly-contest {
-    @apply flex flex-col relative overflow-hidden;
+    @apply flex flex-col relative overflow-hidden cursor-default;
 
     .banner {
         @apply flex overflow-hidden relative w-full;
@@ -36,8 +36,20 @@
         }
     }
 
+    &:hover {
+        .theme {
+            @apply -mt-5 mb-3;
+        }
+    }
+
     .theme {
         @apply bg-gray-900 text-gray-200 flex flex-col relative pb-3 pt-2 px-4 justify-center text-center mx-auto -mt-4 leading-none mb-2 mx-auto;
+
+        transition: all 0.125s ease;
+
+        /* &:hover {
+            @apply -mt-4 mb-2;
+        } */
 
         .title {
             @apply text-2xl font-semibold;

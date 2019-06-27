@@ -1,22 +1,26 @@
 <template>
-    <div class="modal-backdrop" @click="closeModal">
+    <div class="modal-backdrop" @click="closeModal()">
         <div class="modal" role="dialog" @click.stop>
-            <header class="modal-header">
+            <header>
                 <slot name="header">
-                    Default title!
+                    <span class="title">
+                        <slot name="title">Modal</slot>
+                    </span>
                     <button
                         type="button"
-                        class="btn-close"
-                        @click="closeModal"
+                        class="close-button"
+                        @click="closeModal()"
                         aria-label="Close modal"
-                    >x</button>
+                    >
+                        <i class="fas fa-times"></i>
+                    </button>
                 </slot>
             </header>
             <section class="modal-body">
-                <slot name="content">Default content!</slot>
+                <slot name="content">This is a modal.</slot>
             </section>
-            <footer class="modal-footer">
-                <slot name="footer">Default footer!</slot>
+            <footer v-show="!!this.$slots['footer'].length">
+                <slot name="footer"/>
             </footer>
         </div>
     </div>
@@ -24,23 +28,47 @@
 
 <style lang="postcss">
 .modal-backdrop {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.25);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1050;
-}
+    @apply fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center z-50;
 
-.modal {
-    background: #ffffff;
-    overflow-x: auto;
-    display: flex;
-    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.25);
+
+    .modal {
+        @apply bg-white overflow-x-auto flex flex-col p-3 pt-2 rounded-lg shadow-md;
+
+        header {
+            @apply flex flex-row justify-between items-center border-gray-200;
+
+            .title {
+                @apply text-lg mr-4 pb-0 font-semibold;
+
+                border-bottom-width: theme("borderWidth.2");
+            }
+
+            .close-button {
+                @apply h-8 w-8 border-2 border-gray-200 rounded-full;
+
+                transition: all 0.125s ease;
+
+                &:hover {
+                    @apply bg-gray-200 border-0;
+                }
+
+                i {
+                    @apply m-auto;
+                }
+            }
+        }
+
+        section.modal-body {
+            @apply flex pt-3;
+        }
+
+        footer {
+            @apply flex border-gray-200 pt-2 mt-3 w-full;
+
+            border-top-width: theme("borderWidth.2");
+        }
+    }
 }
 </style>
 

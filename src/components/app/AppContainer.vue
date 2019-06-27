@@ -1,7 +1,7 @@
 <template>
-    <div id="app">
-        <site-header ref="appHeader" :style="{'z-index': 100}" @openCompose="viewCompose(true)"/>
-        <app-modal v-show="showCompose" @close="viewCompose(false)"/>
+    <div id="app" @keyup.esc="viewCompose(false)">
+        <site-header ref="appHeader" @open-compose="viewCompose(true)"/>
+        <compose-modal v-show="showCompose" @close="viewCompose(false)"/>
         <router-view :style="topPadding"/>
     </div>
 </template>
@@ -29,7 +29,7 @@ body {
 export default {
     components: {
         SiteHeader: () => import('./Header'),
-        AppModal: () => import('@/components/app/Modal')
+        ComposeModal: () => import('@/components/content/ComposePost')
     },
     data() {
         return {

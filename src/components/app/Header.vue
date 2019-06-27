@@ -28,15 +28,9 @@
                 </div>
             </div>
             <div class="header-right">
-                <!-- <router-link class="header-link" to>
-                    <app-button class="header-button signup" nofocus="true">Sign up</app-button>
-                </router-link>
-                <router-link class="header-link" to>
-                    <app-button class="header-button login" nofocus="true">Log in</app-button>
-                </router-link>-->
-                <router-link class="header-link" to>
-                    <app-button class="header-button compose" @click="showCompose">Compose</app-button>
-                </router-link>
+                <!-- <app-button class="header-button signup">Sign up</app-button>
+                <app-button class="header-button login">Log in</app-button>-->
+                <app-button class="header-button compose" @click="showCompose()">Compose</app-button>
             </div>
         </div>
     </nav>
@@ -44,7 +38,7 @@
 
 <style lang="postcss">
 nav {
-    @apply bg-white p-3 shadow-lg fixed w-full;
+    @apply bg-white p-3 shadow-lg fixed w-full z-40;
 
     .header {
         @apply flex flex-col align-middle mx-auto px-2;
@@ -168,18 +162,19 @@ nav {
 
             min-width: 11rem;
 
-            .header-link {
-                @apply mr-0 ml-1 p-0 flex;
+            .header-button {
+                @apply my-auto mr-0 ml-1;
 
-                .header-button {
-                    @apply my-auto;
+                &.signup {
+                    @apply bg-gray-300;
+                }
 
-                    &.signup {
-                        @apply bg-gray-300;
-                    }
-                    &.login {
-                        @apply bg-yellow-400;
-                    }
+                &.login {
+                    @apply bg-yellow-400;
+                }
+
+                &.compose {
+                    @apply bg-blue-400 text-gray-100;
                 }
             }
         }
@@ -212,7 +207,7 @@ export default {
             this.query = ''
         },
         showCompose() {
-            this.$emit('openCompose')
+            this.$emit('open-compose')
         },
         scrollTop() {
             window.scrollTo({top: 0, animate: 'smooth'})

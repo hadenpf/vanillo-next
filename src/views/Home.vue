@@ -6,19 +6,12 @@
             <trending-card/>
         </div>
         <div class="wrapper main">
-            <div
-                class="card dark bg-gray-700 hover:bg-gray-600 cursor-pointer uppercase text-base text-center text-gray-400 py-2 font-bold"
-            >
-                <p>3 New Posts - Click To Refresh</p>
-            </div>
-            <template v-for="(post, index) in posts">
-                <user-post :key="index" :user="post.user">
-                    <template v-slot:text v-if="post.text">{{ post.text }}</template>
-                    <template v-slot:embed v-if="post.image">
-                        <img :src="post.image" alt>
-                    </template>
-                </user-post>
-            </template>
+            <user-post v-for="(post, index) in posts" :post="post" :key="index">
+                <template v-slot:text v-if="post.text">{{ post.text }}</template>
+                <template v-slot:embed v-if="post.image">
+                    <img :src="post.image" alt>
+                </template>
+            </user-post>
         </div>
         <!-- <div class="wrapper right">
             
@@ -48,22 +41,32 @@
 </style>
 
 <script>
+import moment from 'moment'
 
 export default {
     data: () => ({
         posts: [
             {
                 text: 'Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby! Gaming is my hobby!',
-                user: 1
+                user: 1,
+                posted: new moment('2019-06-26'),
+                likes: 22200,
+                reposts: 3500
             },
             {
                 text: 'I love gaming!',
-                user: 1
+                user: 1,
+                posted: new moment('2019-06-25'),
+                likes: 2512835,
+                reposts: 510521
             },
             {
                 text: 'Post with comment',
                 image: 'https://cdn.discordapp.com/attachments/487853954185822208/592911420811771938/maxresdefault_1.jpg',
-                user: 2
+                user: 2,
+                posted: new moment('2019-05-26'),
+                likes: 12949,
+                reposts: 8
             },
             {
                 text: `Post with long comment
@@ -73,16 +76,22 @@ Post with long comment
 Post with long comment
 Post with long comment`,
                 image: 'https://cdn.discordapp.com/attachments/487853954185822208/592911420811771938/maxresdefault_1.jpg',
-                user: 2
+                user: 2,
+                posted: new moment('2018-05-26'),
+                likes: 2502,
+                reposts: 51
             },
             {
                 image: 'https://cdn.discordapp.com/attachments/487853954185822208/592911420811771938/maxresdefault_1.jpg',
-                user: 1
+                user: 1,
+                posted: new moment('2017-10-18'),
+                likes: 22035,
+                reposts: 253
             }
         ]
     }),
     components: {
-        UserPost: () => import('@/components/content/Post'),
+        UserPost: () => import('@/components/content/UserPost'),
         UserCard: () => import('@/components/user/UserCard'),
         TrendingCard: () => import('@/components/app/TrendingList'),
         ContestCard: () => import('@/components/content/ContestCard')

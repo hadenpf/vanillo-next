@@ -1,5 +1,5 @@
 <template>
-    <button :tabindex="nofocus ? '-1' : ''" class="button">
+    <button :tabindex="nofocus ? '-1' : ''" @click="$emit('click')" class="button">
         <span tabindex="-1" class="button-content">
             <slot/>
         </span>

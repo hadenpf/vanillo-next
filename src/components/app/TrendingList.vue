@@ -38,9 +38,14 @@
             @apply bg-gray-200 cursor-pointer;
         }
 
-        &:active,
-        &:focus {
+        &:active {
             @apply bg-gray-300;
+        }
+
+        &:focus {
+            @apply bg-gray-300 outline-none;
+
+            box-sizing: content-box;
         }
 
         &:not(:first-of-type) {
@@ -93,7 +98,7 @@ export default {
                 },
                 {
                     title: 'Gaming',
-                    description: 'Gaming has become the most posted-about topic on [redacted].'
+                    description: 'Gaming has become the most posted-about topic on Vanillo.'
                 }
             ]
         }
