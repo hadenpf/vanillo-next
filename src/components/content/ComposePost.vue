@@ -151,8 +151,6 @@ export default {
     },
     watch: {
         postContent() {
-            console.log(this.postContent.trim().length)
-
             if(this.postContent.trim().length > 50) {
                 this.$refs['post-input'].classList.add('normal-text')
             } else {
