@@ -1,19 +1,23 @@
 <template>
     <div class="card trending-list">
-        <span class="card-title">Trending</span>
-        <template v-for="(item, index) in items">
-            <div class="trending-item" :key="index">
-                <span class="item-title">{{ item.title }}</span>
-                <span class="item-description">{{ item.description }}</span>
-                <span class="item-promoted" v-if="item.promoted">
-                    <i class="fas fa-arrow-alt-circle-up"></i>
-                    <span class="promoter-info">
-                        Promoted by
-                        <span class="promoter-name">{{ item.promoter }}</span>
-                    </span>
+        <span class="card-title">Trending for you</span>
+        <router-link
+            v-for="(item, index) in items"
+            :to="{ name: 'search', query: { query: item.title } }"
+            class="trending-item"
+            :key="index"
+        >
+            <span class="item-title">{{ item.title }}</span>
+            <span class="item-description" v-if="item.description" v-text="item.description"/>
+            <span class="item-description" v-else>{{ item.postCount.toLocaleString() }} posts</span>
+            <span class="item-promoted" v-if="item.promoted">
+                <i class="fas fa-arrow-alt-circle-up"></i>
+                <span class="promoter-info">
+                    Promoted by
+                    <span class="promoter-name">{{ item.promoter }}</span>
                 </span>
-            </div>
-        </template>
+            </span>
+        </router-link>
     </div>
 </template>
 
@@ -77,19 +81,19 @@ export default {
                 },
                 {
                     title: '#RIPEtika',
-                    description: 'YouTuber Etika was found deceased.'
+                    postCount: 203456
                 },
                 {
-                    title: 'SECRET PLATFORM',
-                    description: 'SECRET PLATFORM has been re-released and is better than ever!'
+                    title: 'Keemstar',
+                    postCount: 25290
                 },
                 {
-                    title: 'Etika',
-                    description: 'YouTuber Etika was found deceased.'
+                    title: '#FreeGamer',
+                    postCount: 2345
                 },
                 {
                     title: 'Gaming',
-                    description: 'Gaming has become the most posted-about topic on SECRET PLATFORM.'
+                    description: 'Gaming has become the most posted-about topic on [redacted].'
                 }
             ]
         }

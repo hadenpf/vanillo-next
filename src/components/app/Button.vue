@@ -11,7 +11,7 @@
     @apply bg-gray-200 text-gray-800 font-medium rounded-full flex overflow-hidden appearance-none;
 
     .button-content {
-        @apply w-full h-full py-1 px-4 inline-block;
+        @apply w-full h-full inline-block relative outline-none py-1 px-4;
 
         transition: all 0.125s ease;
     }

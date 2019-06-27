@@ -1,7 +1,8 @@
 <template>
     <div id="app">
-        <site-header/>
-        <router-view/>
+        <site-header ref="appHeader" :style="{'z-index': 100}" @openCompose="viewCompose(true)"/>
+        <app-modal v-show="showCompose" @close="viewCompose(false)"/>
+        <router-view :style="topPadding"/>
     </div>
 </template>
 
@@ -27,7 +28,23 @@ body {
 <script>
 export default {
     components: {
-        SiteHeader: () => import('./Header')
+        SiteHeader: () => import('./Header'),
+        AppModal: () => import('@/components/app/Modal')
+    },
+    data() {
+        return {
+            topPadding: 'padding-top: 5.5rem;',
+            showCompose: false
+        }
+    },
+    methods: {
+        viewCompose(value) {
+            if(value !== undefined) {
+                this.showCompose = value
+            } else {
+                this.showCompose = !this.showCompose
+            }
+        }
     },
     mounted() {
         this.$store.commit('cacheUser', {
@@ -40,7 +57,7 @@ export default {
             id: 2,
             name: 'hando',
             avatarUrl: 'https://cdn.discordapp.com/avatars/377638029008830466/e2362dfd4167c5b1189012b46ded3d92.png',
-            status: 'offline'
+            status: 'dnd'
         })
     }
 }

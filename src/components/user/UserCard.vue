@@ -18,10 +18,17 @@
     @apply flex flex-col bg-white text-gray-800 shadow-lg rounded-lg;
 
     .banner {
-        @apply flex w-full h-32 bg-gray-400 rounded-t-lg overflow-hidden;
+        @apply flex bg-gray-400 rounded-t-lg overflow-hidden relative;
+
+        padding-bottom: 25%; /* 20:7 aspect ratio */
 
         img {
-            @apply min-w-full min-h-full m-auto;
+            @apply absolute m-auto w-auto h-auto min-w-full min-h-full;
+
+            top: -9999px;
+            bottom: -9999px;
+            left: -9999px;
+            right: -9999px;
         }
     }
 

@@ -2,13 +2,9 @@
     <div class="card post" :class="{padded: allPadded, reverse: reverseElements, dark}">
         <div class="post-header" :class="{padded: headerPadded}">
             <div class="post-meta">
-                <img
-                    class="avatar"
-                    src="https://cdn.discordapp.com/attachments/487853954185822208/592912660492976128/unknown.png"
-                    alt
-                >
+                <user-avatar :user="userObject" :showStatus="true"/>
                 <div class="post-meta-text">
-                    <span class="username">Sock</span>
+                    <span class="username">{{ userObject.name }}</span>
                     <span>
                         <span class="timestamp">2 days ago</span>
                         <span class="location">
@@ -68,7 +64,7 @@
 
     .padded,
     &.padded {
-        @apply p-3;
+        @apply px-4 py-3;
 
         .post-header {
             @apply pb-2;
@@ -76,12 +72,12 @@
     }
 
     &.reverse {
-        /* @apply flex-col-reverse; */
+        @apply flex-col-reverse;
 
         .post-content {
             img,
             video {
-                @apply rounded-t-none;
+                @apply rounded-b-none;
             }
         }
     }
@@ -101,7 +97,7 @@
             }
 
             .avatar {
-                @apply bg-gray-400 rounded-full h-12 w-12 border-green-500 border-2 border-solid;
+                @apply bg-gray-400 rounded-full h-12 w-12;
             }
 
             .post-meta-text {
@@ -225,20 +221,34 @@
 <script>
 export default {
     props: [
-        'type'
+        'user'
     ],
     data: () => ({
         liked: false,
         reposted: false
     }),
+    components: {
+        UserAvatar: () => import('@/components/user/UserAvatar')
+    },
     computed: {
+        type() {
+            let type = 'normal'
+            let text = this.$slots['text']
+            let embed = this.$slots['embed']
+
+            if(embed && !text) {
+                type = 'content'
+            }
+
+            if(text && text[0].text.length <= 20) {
+                type = 'bigtext'
+            }
+
+            return type
+        },
         allPadded() {
             if(this.type === 'content') {
                 return false
-            }
-
-            if(this.type === 'normal') {
-                return true
             }
 
             return true
@@ -258,14 +268,15 @@ export default {
             return false
         },
         bigText() {
-            return (
-                this.$slots['text'] &&
-                this.$slots['text'][0].text.length <= 50
-            )
+            return this.type === 'bigtext'
         },
         dark() {
-            // return this.type === 'content'
-            return false
+            return this.type === 'content'
+            // return false
+        },
+        reverse() {
+            return this.type === 'content'
+            // return false
         },
         isCombined() {
             if(this.$slots['text'] && this.$slots['embed']) {
@@ -273,6 +284,13 @@ export default {
             }
 
             return false
+        },
+        userObject() {
+            if(this.$store.state.userCache[this.user]) {
+                return this.$store.state.userCache[this.user]
+            }
+
+            return { }
         }
     }
 }

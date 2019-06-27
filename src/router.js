@@ -11,6 +11,17 @@ export default new VueRouter({
             component: () => import('@/views/Home')
         },
         {
+            name: 'search',
+            path: '/search',
+            beforeEnter(to, from, next) {
+                if (!to.query['query']) {
+                    next('/')
+                }
+
+                next()
+            }
+        },
+        {
             path: '*',
             redirect: '/'
         }

@@ -2,26 +2,40 @@
     <nav>
         <div ref="header" class="header container">
             <div class="header-brand">
-                <img src="@/assets/logo.png">
+                <router-link to="/">
+                    <img src="@/assets/logo.png" @click="scrollTop()">
+                </router-link>
             </div>
             <div class="header-main">
-                <div class="search-bar-wrapper" ref="search-wrapper" @click="expandSearch()">
-                    <i class="search-icon fas fa-search"></i>
+                <div
+                    class="search-bar-wrapper"
+                    ref="search-wrapper"
+                    @click="expandSearch()"
+                    @keyup.esc="collapseSearch()"
+                >
                     <input
                         ref="search-bar"
                         class="search-bar"
                         :placeholder="search_placeholder"
                         v-model="query"
                     >
-                    <i class="search-collapse-icon fas fa-times" @click.stop="collapseSearch()"></i>
+                    <button class="search-collapse-button" @click.stop="collapseSearch()">
+                        <i class="search-collapse-icon fas fa-times"></i>
+                    </button>
+                    <button class="search-button" title="Search">
+                        <i class="search-icon fas fa-search"></i>
+                    </button>
                 </div>
             </div>
             <div class="header-right">
-                <router-link class="auth-link" to>
-                    <app-button class="auth-button signup" nofocus="true">Sign up</app-button>
+                <!-- <router-link class="header-link" to>
+                    <app-button class="header-button signup" nofocus="true">Sign up</app-button>
                 </router-link>
-                <router-link class="auth-link" to>
-                    <app-button class="auth-button login" nofocus="true">Log in</app-button>
+                <router-link class="header-link" to>
+                    <app-button class="header-button login" nofocus="true">Log in</app-button>
+                </router-link>-->
+                <router-link class="header-link" to>
+                    <app-button class="header-button compose" @click="showCompose">Compose</app-button>
                 </router-link>
             </div>
         </div>
@@ -30,10 +44,10 @@
 
 <style lang="postcss">
 nav {
-    @apply bg-white p-3 shadow-lg;
+    @apply bg-white p-3 shadow-lg fixed w-full;
 
     .header {
-        @apply flex flex-col align-middle mx-auto;
+        @apply flex flex-col align-middle mx-auto px-2;
 
         min-height: theme("height.12");
 
@@ -42,14 +56,15 @@ nav {
         }
 
         .header-brand {
-            @apply flex items-center flex-shrink-0 mr-6 w-full mb-1;
+            @apply flex items-center flex-shrink-0 mr-6 w-full mb-2;
 
             @screen sm {
-                @apply w-auto;
+                @apply w-auto mb-0;
             }
 
-            img {
-                @apply h-12 m-auto;
+            a,
+            a img {
+                @apply h-10 m-auto;
             }
         }
 
@@ -77,10 +92,10 @@ nav {
         }
 
         .header-main {
-            @apply w-full flex content-end justify-center pb-2;
+            @apply w-full flex content-end justify-center py-2;
 
             @screen sm {
-                @apply pb-0;
+                @apply py-1;
             }
 
             transition: all 0.125s ease;
@@ -88,45 +103,57 @@ nav {
             .search-bar-wrapper {
                 @apply flex align-middle h-8 w-8 my-auto bg-gray-200 rounded-full overflow-hidden cursor-pointer;
 
-                @screen md {
-                    @apply w-1/2 cursor-text;
-                }
+                transition: all 0.125s ease;
 
                 &.open {
                     @apply w-1/2 cursor-text;
-                }
 
-                transition: all 0.125s ease;
-
-                .search-icon {
-                    @apply my-auto ml-2 mr-3;
-
-                    @screen md {
-                        @apply ml-4;
+                    .search-bar {
+                        @apply inline-block;
                     }
-                }
 
-                .search-collapse-icon {
-                    @apply my-auto ml-1 mr-3 cursor-pointer inline-block;
+                    .search-collapse-button {
+                        @apply inline-block;
 
-                    @screen md {
-                        @apply invisible;
+                        @screen md {
+                            @apply hidden;
+                        }
                     }
                 }
 
                 &.has-text {
-                    .search-collapse-icon {
-                        @apply visible;
+                    .search-collapse-button {
+                        @apply inline-block;
+                    }
+                }
+
+                .search-icon {
+                    @apply my-auto mr-3 ml-2;
+                }
+
+                .search-collapse-button {
+                    @apply py-1 px-2 cursor-pointer hidden;
+
+                    @screen md {
+                        @apply hidden;
                     }
                 }
 
                 .search-bar {
-                    @apply bg-inherit h-full w-full;
+                    @apply bg-inherit h-full w-full pl-3 hidden;
 
                     transition: all 0.125s ease;
 
                     &:focus {
                         @apply outline-none;
+                    }
+                }
+
+                @screen md {
+                    @apply w-1/2 cursor-text;
+
+                    .search-bar {
+                        @apply inline-block;
                     }
                 }
             }
@@ -135,16 +162,16 @@ nav {
         .header-right {
             @apply flex flex-row align-bottom content-end justify-center;
 
-            @screen lg {
-                @apply justify-center;
+            @screen sm {
+                @apply justify-end;
             }
 
             min-width: 11rem;
 
-            .auth-link {
+            .header-link {
                 @apply mr-0 ml-1 p-0 flex;
 
-                .auth-button {
+                .header-button {
                     @apply my-auto;
 
                     &.signup {
@@ -181,13 +208,20 @@ export default {
         collapseSearch() {
             this.$refs['search-wrapper'].classList.remove('open')
             this.$refs['header'].classList.remove('search-open')
+            this.$refs['search-bar'].focus()
             this.query = ''
+        },
+        showCompose() {
+            this.$emit('openCompose')
+        },
+        scrollTop() {
+            window.scrollTo({top: 0, animate: 'smooth'})
         }
     },
     watch: {
         query: function() {
             if(this.query.length > 0) {
-                this.$refs['search-wrapper'].classList.add('has-text')
+                this.$refs['search-wrapper'].classList.add('has-text', 'open')
             } else {
                 this.$refs['search-wrapper'].classList.remove('has-text')
             }
