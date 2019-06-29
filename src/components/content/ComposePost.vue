@@ -1,26 +1,50 @@
 <template>
     <app-modal @close="close()">
-        <template v-slot:title>Compose</template>
+        <template v-slot:title>New Post</template>
         <template v-slot:content>
-            <textarea
-                @keydown.enter.ctrl.exact.stop
-                type="text"
-                ref="post-input"
-                v-model="postContent"
-                :class="charCountClass"
-            />
+            <div class="input-group">
+                <label for="post-title">Title</label>
+                <input
+                    @keydown.enter.ctrl.exact.stop
+                    type="text"
+                    ref="post-title"
+                    id="post-title"
+                    placeholder="Add a title"
+                    v-model="postContent"
+                    :class="charCountClass"
+                >
+            </div>
+            <div class="input-group">
+                <label for="post-content">Content</label>
+                <div class="post-content" id="post-content">
+                    <div class="post-options" v-show="true">
+                        <div class="post-option">
+                            <icon-button>
+                                <i class="fas fa-align-left"></i>
+                            </icon-button>
+                            <span class="label">Text Post</span>
+                        </div>
+                        <div class="post-option">
+                            <icon-button>
+                                <i class="fas fa-camera"></i>
+                            </icon-button>
+                            <span class="label">Photo or Video</span>
+                        </div>
+                        <div class="post-option">
+                            <icon-button>
+                                <i class="fas fa-link"></i>
+                            </icon-button>
+                            <span class="label">Link Content</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </template>
         <template v-slot:footer>
             <span class="left-group">
-                <icon-button title="Add photo or video">
-                    <i class="fas fa-camera"></i>
-                </icon-button>
-                <icon-button title="Embed external content">
-                    <i class="fas fa-external-link-square-alt"></i>
-                </icon-button>
+                <span class="char-counter" :class="charCountClass">{{ remainingCharacters }}</span>
             </span>
             <span class="right-group">
-                <span class="char-counter" :class="charCountClass">{{ remainingCharacters }}</span>
                 <app-button class="cancel" @click="close()">Cancel</app-button>
                 <app-button class="submit" type="submit">Post</app-button>
             </span>
@@ -30,38 +54,109 @@
 
 <style lang="postcss">
 .modal-backdrop {
+    @apply p-3;
+
     .modal {
+        @apply w-full;
+
+        /* transition: all 0.2s ease; */
+
+        @screen sm {
+            @apply w-auto;
+
+            min-width: calc(theme("width.64") * 2);
+        }
+
+        header {
+            .close-button {
+                @apply h-10 w-10;
+
+                @screen md {
+                    @apply h-8 w-8;
+                }
+            }
+        }
+
         section {
-            input,
-            textarea {
-                @apply rounded bg-gray-100 p-2 resize-none h-auto text-xl font-medium outline-none border-2 border-gray-300;
+            @apply flex-col;
 
-                width: calc(theme("width.64") * 2);
-                min-height: theme("height.32");
-                transition: all 0.125s ease;
+            .input-group {
+                @apply flex flex-col;
 
-                &:hover {
-                    @apply bg-gray-200;
+                &:not(:first-of-type) {
+                    @apply mt-2;
                 }
 
-                &:focus {
-                    @apply bg-gray-200 border-2 border-gray-400;
+                label {
+                    @apply font-medium pl-1 uppercase text-gray-500;
                 }
 
-                &.normal-text {
-                    @apply text-base font-normal;
+                .post-content {
+                    @apply rounded bg-gray-100 text-gray-500 p-1 px-2 resize-none h-auto text-lg font-normal border-2 border-gray-300 flex;
+
+                    min-height: theme("height.40");
+
+                    .post-options {
+                        @apply flex m-auto flex-row;
+
+                        .post-option {
+                            @apply flex flex-col items-center;
+
+                            &:not(:first-of-type) {
+                                @apply ml-4;
+                            }
+
+                            button {
+                                @apply bg-gray-200 w-16 h-16 text-2xl border-gray-300 mb-1;
+
+                                &:hover {
+                                    @apply bg-gray-300;
+                                }
+
+                                &:focus {
+                                    @apply bg-gray-300 border-gray-400;
+                                }
+
+                                &:active {
+                                    @apply bg-gray-400 border-gray-500;
+                                }
+                            }
+
+                            .label {
+                                @apply text-sm;
+                            }
+                        }
+                    }
                 }
 
-                &.warn {
-                    @apply text-orange-700;
-                }
+                input,
+                textarea {
+                    @apply rounded bg-gray-100 p-1 px-2 resize-none h-auto text-lg font-normal outline-none border-2 border-gray-300;
+                    transition: all 0.125s ease;
 
-                &.close {
-                    @apply text-red-800;
-                }
+                    &:hover {
+                        @apply bg-gray-200;
+                    }
 
-                &.over {
-                    @apply text-red-700;
+                    &:focus {
+                        @apply bg-gray-200 border-2 border-gray-400;
+                    }
+
+                    &.normal-text {
+                        @apply text-base font-normal;
+                    }
+
+                    &.warn {
+                        @apply text-orange-700;
+                    }
+
+                    &.close {
+                        @apply text-red-800;
+                    }
+
+                    &.over {
+                        @apply text-red-700;
+                    }
                 }
             }
         }
@@ -78,7 +173,7 @@
             }
 
             .char-counter {
-                @apply text-base font-medium tracking-tighter align-middle mr-3;
+                @apply text-base font-medium tracking-tighter align-middle m-2 ml-1;
 
                 transition: color 0.2s ease;
 
@@ -110,8 +205,7 @@
 </style>
 
 <script>
-const maxCharCount = 280 // this is temporary
-// TODO: team: discuss what we should set this at
+const maxCharCount = 50 // this is temporary
 
 export default {
     data() {
@@ -129,8 +223,8 @@ export default {
         },
         charCountClass() {
             const breakpoints = {
-                50: 'warn',
-                20: 'close',
+                20: 'warn',
+                10: 'close',
                 0: 'over'
             }
             
@@ -151,11 +245,11 @@ export default {
     },
     watch: {
         postContent() {
-            if(this.postContent.trim().length > 50) {
-                this.$refs['post-input'].classList.add('normal-text')
-            } else {
-                this.$refs['post-input'].classList.remove('normal-text')
-            }
+            // if(this.postContent.trim().length > 50) {
+            //     this.$refs['post-title'].classList.add('normal-text')
+            // } else {
+            //     this.$refs['post-title'].classList.remove('normal-text')
+            // }
         }
     }
 }

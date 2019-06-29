@@ -6,14 +6,9 @@
                     <span class="title">
                         <slot name="title">Modal</slot>
                     </span>
-                    <button
-                        type="button"
-                        class="close-button"
-                        @click="closeModal()"
-                        aria-label="Close modal"
-                    >
+                    <icon-button class="close-button" @click="closeModal()" title="Close">
                         <i class="fas fa-times"></i>
-                    </button>
+                    </icon-button>
                 </slot>
             </header>
             <section class="modal-body">
@@ -33,7 +28,7 @@
     background-color: rgba(0, 0, 0, 0.25);
 
     .modal {
-        @apply bg-white overflow-x-auto flex flex-col p-3 pt-2 rounded-lg shadow-md;
+        @apply bg-white overflow-x-auto flex flex-col px-4 py-3 rounded-lg shadow-md;
 
         header {
             @apply flex flex-row justify-between items-center border-gray-200;
@@ -45,17 +40,7 @@
             }
 
             .close-button {
-                @apply h-8 w-8 border-2 border-gray-200 rounded-full;
-
-                transition: all 0.125s ease;
-
-                &:hover {
-                    @apply bg-gray-200 border-0;
-                }
-
-                i {
-                    @apply m-auto;
-                }
+                @apply h-8 w-8 min-w-0;
             }
         }
 
@@ -78,6 +63,9 @@ export default {
         closeModal() {
             this.$emit('close')
         }
+    },
+    components: {
+        IconButton: () => import('@/components/app/IconButton')
     }
 }
 </script>

@@ -5,16 +5,18 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        userCache: {
-
-        }
+        userCache: []
     },
     mutations: {
         cacheUser(state, user) {
-            state.userCache[user.id.toString()] = Object.assign({}, user)
+            state.userCache.push(Object.assign({}, user))
         },
         updateCachedUser(state, user) {
-            state.userCache[user.id.toString()] = Object.assign({}, state.userCache[user.id], user)
+            const existingUser = state.userCache.find((user) => user.id === user.id) || false
+
+            state.userCache = state.userCache.filter((user) => user.id !== user.id) || []
+
+            state.userCache.push(Object.assign({}, existingUser, user))
         }
     },
     actions: {

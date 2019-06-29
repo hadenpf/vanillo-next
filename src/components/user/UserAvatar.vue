@@ -18,10 +18,12 @@
         &.offline {
             @apply border-gray-400;
 
-            filter: grayscale(1);
+            &:not(.no-offline-dim) {
+                filter: grayscale(1);
 
-            &:hover {
-                filter: grayscale(0.5);
+                &:hover {
+                    filter: grayscale(0.6);
+                }
             }
         }
 
@@ -43,6 +45,10 @@ export default {
         showStatus: {
             type: Boolean,
             default: true
+        },
+        removeColorOffline: {
+            type: Boolean,
+            default: true
         }
     },
     computed: {
@@ -51,6 +57,12 @@ export default {
 
             if(this.showStatus) {
                 string += 'status'
+            } else {
+                return ''
+            }
+
+            if(this.user.status === 'offline' && !this.removeColorOffline) {
+                string += ' no-offline-dim'
             }
 
             string += ` ${this.user.status}`

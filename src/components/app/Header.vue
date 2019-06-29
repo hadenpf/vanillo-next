@@ -12,6 +12,7 @@
                     ref="search-wrapper"
                     @click="expandSearch()"
                     @keyup.esc="collapseSearch()"
+                    @keyup.enter="submitSearch()"
                 >
                     <input
                         ref="search-bar"
@@ -22,7 +23,7 @@
                     <button class="search-collapse-button" @click.stop="collapseSearch()">
                         <i class="search-collapse-icon fas fa-times"></i>
                     </button>
-                    <button class="search-button" title="Search">
+                    <button class="search-button" title="Search" @click.stop="submitSearch()">
                         <i class="search-icon fas fa-search"></i>
                     </button>
                 </div>
@@ -38,7 +39,7 @@
 
 <style lang="postcss">
 nav {
-    @apply bg-white p-3 shadow-lg fixed w-full z-40;
+    @apply bg-white p-3 shadow-md fixed w-full z-40;
 
     .header {
         @apply flex flex-col align-middle mx-auto px-2;
@@ -205,6 +206,18 @@ export default {
             this.$refs['header'].classList.remove('search-open')
             this.$refs['search-bar'].focus()
             this.query = ''
+        },
+        submitSearch() {
+            const trimmedQuery = this.query.trim().replace(/\s{2,}/g, ' ')
+
+            if(!trimmedQuery.length) { return }
+
+            this.$router.push({
+                name: 'search',
+                query: {
+                    query: this.query.trim().replace(/\s{2,}/g, ' ')
+                }
+            })
         },
         showCompose() {
             this.$emit('open-compose')

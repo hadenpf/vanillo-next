@@ -11,6 +11,11 @@ export default new VueRouter({
             component: () => import('@/views/Home')
         },
         {
+            name: 'profile',
+            path: '/profile/:username',
+            component: () => import('@/views/UserProfile')
+        },
+        {
             name: 'search',
             path: '/search',
             beforeEnter(to, from, next) {

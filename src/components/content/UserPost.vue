@@ -2,7 +2,7 @@
     <div class="card post" :class="{padded: allPadded, reverse: reverseElements, dark}">
         <div class="post-header" :class="{padded: headerPadded}">
             <div class="post-meta">
-                <user-avatar :user="userObject" :showStatus="true"/>
+                <user-avatar :user="userObject" :showStatus="true" :removeColorOffline="false"/>
                 <div class="post-meta-text">
                     <span class="username">
                         {{ userObject.name }}
@@ -356,11 +356,9 @@ export default {
             return false
         },
         userObject() {
-            if(this.$store.state.userCache[this.post.user]) {
-                return this.$store.state.userCache[this.post.user]
-            }
+            const providedUser = this.post.user
 
-            return { }
+            return this.$store.state.userCache.find((user) => user.id === providedUser) || {}
         },
         formattedTime() {
             const relative = this.post.posted.format('MMM DD YYYY')
