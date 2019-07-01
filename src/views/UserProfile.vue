@@ -19,7 +19,9 @@
             </div>
         </div>
         <div class="content container mx-auto">
-            <div class="pb-32"></div>
+            <div class="pb-32">
+                <video-player/>
+            </div>
         </div>
     </div>
 </template>
@@ -114,7 +116,8 @@ export default {
         }
     },
     components: {
-        UserAvatar: () => import('@/components/user/UserAvatar')
+        UserAvatar: () => import('@/components/user/UserAvatar'),
+        VideoPlayer: () => import('@/components/content/VideoPlayer')
     },
     mounted() {
         const requestedUsername = this.$route.params.username

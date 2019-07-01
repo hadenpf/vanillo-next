@@ -2,14 +2,34 @@
     <div class="card post" :class="{padded: allPadded, reverse: reverseElements, dark}">
         <div class="post-header" :class="{padded: headerPadded}">
             <div class="post-meta">
-                <user-avatar :user="userObject" :showStatus="true" :removeColorOffline="false"/>
+                <router-link
+                    :to="{
+                        name: 'profile',
+                        params: {
+                            username: user
+                        }
+                    }"
+                    class="rounded-full"
+                >
+                    <user-avatar :user="userObject" :showStatus="true" :removeColorOffline="false"/>
+                </router-link>
                 <div class="post-meta-text">
-                    <span class="username">
-                        {{ userObject.name }}
-                        <span
-                            class="handle"
-                        >@{{ userObject.name.toLowerCase() }}</span>
-                        <span class="repost-info">
+                    <router-link
+                        :to="{
+                            name: 'profile',
+                            params: {
+                                username: user
+                            }
+                        }"
+                    >
+                        <span class="username">
+                            {{ userObject.name }}
+                            <span
+                                class="handle"
+                            >@{{ userObject.name.toLowerCase() }}</span>
+                        </span>
+                    </router-link>
+                    <!-- <span class="repost-info">
                             <i class="fas fa-retweet"></i>
                             <span class="username">
                                 {{ userObject.name }}
@@ -17,13 +37,12 @@
                                     class="handle"
                                 >@{{ userObject.name.toLowerCase() }}</span>
                             </span>
-                        </span>
-                    </span>
+                    </span>-->
                     <span>
                         <span class="timestamp">{{ formattedTime }}</span>
-                        <span class="location">
+                        <!-- <span class="location">
                             <i class="fas fa-map-marker-alt"></i> Gaming, KS
-                        </span>
+                        </span>-->
                     </span>
                 </div>
             </div>
@@ -34,9 +53,11 @@
             </div>
         </div>
         <div class="post-content" :class="{ 'big-text': bigText }">
-            <slot name="text"/>
-            <div :class="{ 'pt-1': isCombined }">
-                <slot name="embed"/>
+            <span class="text" v-text="post.text" v-if="post.text"/>
+            <div :class="{ 'combined': isCombined }">
+                <div class="embed">
+                    <slot name="embed"/>
+                </div>
             </div>
             <div class="post-button-group mt-2">
                 <span class="left-group">
@@ -72,7 +93,7 @@
 
 <style lang="postcss">
 .post {
-    @apply flex flex-col;
+    @apply flex flex-col overflow-hidden;
 
     &.dark {
         .post-button-group {
@@ -235,14 +256,21 @@
     }
 
     .post-content {
-        @apply font-normal;
+        @apply text-xl;
 
-        &.big-text {
+        /* &.big-text {
             @apply text-2xl;
+        } */
+
+        > .text {
+            @apply mb-1 inline-block;
+        }
+
+        .embed {
         }
 
         img,
-        video {
+        .video-player {
             @apply rounded-lg;
         }
     }
@@ -341,8 +369,8 @@ export default {
             return this.type === 'bigtext'
         },
         dark() {
-            return this.type === 'content'
-            // return false
+            // return this.type === 'content'
+            return false
         },
         reverse() {
             return this.type === 'content'

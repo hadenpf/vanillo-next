@@ -19,22 +19,22 @@
                 <div class="post-content" id="post-content">
                     <div class="post-options" v-show="true">
                         <div class="post-option">
-                            <icon-button>
+                            <icon-button id="compose-text-button">
                                 <i class="fas fa-align-left"></i>
                             </icon-button>
-                            <span class="label">Text Post</span>
+                            <label for="compose-text-button" class="label">Text Post</label>
                         </div>
                         <div class="post-option">
-                            <icon-button>
+                            <icon-button id="compose-media-button">
                                 <i class="fas fa-camera"></i>
                             </icon-button>
-                            <span class="label">Photo or Video</span>
+                            <label for="compose-media-button" class="label">Photo or Video</label>
                         </div>
                         <div class="post-option">
-                            <icon-button>
+                            <icon-button id="compose-link-button">
                                 <i class="fas fa-link"></i>
                             </icon-button>
-                            <span class="label">Link Content</span>
+                            <label for="compose-link-button" class="label">Link Content</label>
                         </div>
                     </div>
                 </div>

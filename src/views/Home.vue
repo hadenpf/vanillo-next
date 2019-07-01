@@ -69,19 +69,7 @@ export default {
                 reposts: 8
             },
             {
-                text: `Post with long comment
-Post with long comment
-Post with long comment
-Post with long comment
-Post with long comment
-Post with long comment`,
-                image: 'https://cdn.discordapp.com/attachments/487853954185822208/592911420811771938/maxresdefault_1.jpg',
-                user: 2,
-                posted: new moment('2018-05-26'),
-                likes: 2502,
-                reposts: 51
-            },
-            {
+                // text: 'this is media',
                 image: 'https://cdn.discordapp.com/attachments/487853954185822208/592911420811771938/maxresdefault_1.jpg',
                 user: 1,
                 posted: new moment('2017-10-18'),
@@ -91,10 +79,10 @@ Post with long comment`,
         ]
     }),
     components: {
-        UserPost: () => import('@/components/content/UserPost'),
-        UserCard: () => import('@/components/user/UserCard'),
+        ContestCard: () => import('@/components/content/ContestCard'),
         TrendingCard: () => import('@/components/app/TrendingList'),
-        ContestCard: () => import('@/components/content/ContestCard')
+        UserCard: () => import('@/components/user/UserCard'),
+        UserPost: () => import('@/components/content/UserPost')
     }
 }
 </script>

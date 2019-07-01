@@ -1,12 +1,7 @@
 <template>
     <nav>
         <div ref="header" class="header container">
-            <div class="header-brand">
-                <router-link to="/">
-                    <img src="@/assets/logo.png" @click="scrollTop()">
-                </router-link>
-            </div>
-            <div class="header-main">
+            <div class="header-left">
                 <div
                     class="search-bar-wrapper"
                     ref="search-wrapper"
@@ -27,6 +22,11 @@
                         <i class="search-icon fas fa-search"></i>
                     </button>
                 </div>
+            </div>
+            <div class="header-main">
+                <router-link to="/">
+                    <img src="@/assets/logo.png" @click="scrollTop()">
+                </router-link>
             </div>
             <div class="header-right">
                 <!-- <app-button class="header-button signup">Sign up</app-button>
@@ -50,21 +50,8 @@ nav {
             @apply flex-row;
         }
 
-        .header-brand {
-            @apply flex items-center flex-shrink-0 mr-6 w-full mb-2;
-
-            @screen sm {
-                @apply w-auto mb-0;
-            }
-
-            a,
-            a img {
-                @apply h-10 m-auto;
-            }
-        }
-
         &.search-open {
-            .header-brand,
+            .header-left,
             .header-right {
                 @apply hidden;
 
@@ -86,14 +73,12 @@ nav {
             }
         }
 
-        .header-main {
-            @apply w-full flex content-end justify-center py-2;
+        .header-left {
+            @apply flex items-center flex-shrink-0 w-full mb-2;
 
             @screen sm {
-                @apply py-1;
+                @apply w-auto mb-0;
             }
-
-            transition: all 0.125s ease;
 
             .search-bar-wrapper {
                 @apply flex align-middle h-8 w-8 my-auto bg-gray-200 rounded-full overflow-hidden cursor-pointer;
@@ -154,14 +139,27 @@ nav {
             }
         }
 
+        .header-main {
+            @apply w-full flex content-end justify-end py-2;
+
+            transition: all 0.125s ease;
+
+            @screen sm {
+                @apply py-1;
+            }
+
+            a,
+            a img {
+                @apply h-10 m-auto;
+            }
+        }
+
         .header-right {
-            @apply flex flex-row align-bottom content-end justify-center;
+            @apply flex flex-row align-bottom content-end justify-center w-full;
 
             @screen sm {
                 @apply justify-end;
             }
-
-            min-width: 11rem;
 
             .header-button {
                 @apply my-auto mr-0 ml-1;
@@ -171,11 +169,11 @@ nav {
                 }
 
                 &.login {
-                    @apply bg-yellow-400;
+                    @apply bg-primary-600;
                 }
 
                 &.compose {
-                    @apply bg-blue-400 text-gray-100;
+                    @apply bg-primary-600 text-gray-100;
                 }
             }
         }

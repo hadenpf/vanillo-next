@@ -4,14 +4,20 @@ module.exports = {
     important: true,
     theme: {
         fontFamily: {
-            body: ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif', '"Font Awesome 5 Free"'],
+            body: ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif'],
             inherit: ['inherit']
         },
         extend: {
             colors: {
                 inherit: 'inherit',
                 primary: {
-                    // primary brand colors when we have em
+                    200: '#ffd5b0',
+                    300: '#ffc796',
+                    400: '#ffba7d',
+                    500: '#ffac63',
+                    600: '#ff9e4a',
+                    700: '#ff9130',
+                    800: '#ff8317'
                 }
             }
         }

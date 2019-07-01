@@ -1,6 +1,6 @@
 <template>
     <div class="card trending-list">
-        <span class="card-title">Trending for you</span>
+        <span class="card-title">Trending Topics</span>
         <router-link
             v-for="(item, index) in items"
             :to="{ name: 'search', query: { query: item.title } }"
@@ -53,7 +53,7 @@
         }
 
         .item-title {
-            @apply flex text-lg font-bold text-blue-700;
+            @apply flex text-lg font-bold text-primary-800;
         }
 
         .item-description {
@@ -64,7 +64,7 @@
             @apply mt-1 text-xs text-gray-600 font-medium;
 
             i {
-                @apply text-blue-600;
+                @apply text-primary-700;
 
                 margin-right: calc(theme("spacing.1") / 2);
             }

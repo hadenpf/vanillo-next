@@ -38,11 +38,16 @@
                     <span class="status-indicator" :class="`${user.status}`"></span>
                 </router-link>
             </div>
-            <select class="status-selector" name="status-selector" v-model="user.status">
+            <select
+                class="status-selector"
+                :class="user.status"
+                name="status-selector"
+                v-model="user.status"
+            >
                 <option value="online" class="online">Online</option>
                 <option value="away" class="away">Away</option>
                 <option value="dnd" class="dnd">Do Not Disturb</option>
-                <option value="offline">Invisible</option>
+                <option value="offline" class="offline">Invisible</option>
             </select>
             <h4>150 posts</h4>
             <h4>2.3K followers</h4>
@@ -85,10 +90,27 @@
         }
 
         .status-selector {
-            @apply w-32 mx-auto text-gray-700 bg-gray-300 rounded-full px-2 py-1 cursor-pointer my-1;
+            @apply mx-auto text-gray-700 bg-gray-200 rounded-full px-2 py-1 cursor-pointer my-1 border-2 border-gray-300;
 
+            transition: all 0.125s ease;
+            width: calc(theme("width.32") + theme("width.2"));
+
+            &:hover {
+                @apply bg-gray-300 border-gray-400;
+            }
+
+            &:active,
+            &:focus {
+                @apply bg-gray-400 border-gray-500;
+            }
+
+            &:focus {
+                @apply outline-none;
+            }
+
+            &,
             option {
-                @apply text-gray-100 p-3;
+                @apply text-gray-100;
 
                 &.online {
                     @apply bg-green-500;
