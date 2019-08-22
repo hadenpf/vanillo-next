@@ -10,7 +10,7 @@
                     }
                 }"
             >
-                <img src="@/assets/testbanner.jpg" alt>
+                <img src="@/assets/testbanner.jpg" alt />
             </router-link>
         </div>
         <router-link
@@ -22,7 +22,7 @@
                 }
             }"
         >
-            <user-avatar :user="user" :status="false" :link="true"/>
+            <user-avatar :user="user" :status="false" :link="true" />
         </router-link>
         <div class="content">
             <div class="user-meta">
@@ -38,17 +38,6 @@
                     <span class="status-indicator" :class="`${user.status}`"></span>
                 </router-link>
             </div>
-            <select
-                class="status-selector"
-                :class="user.status"
-                name="status-selector"
-                v-model="user.status"
-            >
-                <option value="online" class="online">Online</option>
-                <option value="away" class="away">Away</option>
-                <option value="dnd" class="dnd">Do Not Disturb</option>
-                <option value="offline" class="offline">Invisible</option>
-            </select>
             <h4>150 posts</h4>
             <h4>2.3K followers</h4>
         </div>
@@ -87,47 +76,6 @@
 
         .username {
             @apply text-2xl font-normal;
-        }
-
-        .status-selector {
-            @apply mx-auto text-gray-700 bg-gray-200 rounded-full px-2 py-1 cursor-pointer my-1 border-2 border-gray-300;
-
-            transition: all 0.125s ease;
-            width: calc(theme("width.32") + theme("width.2"));
-
-            &:hover {
-                @apply bg-gray-300 border-gray-400;
-            }
-
-            &:active,
-            &:focus {
-                @apply bg-gray-400 border-gray-500;
-            }
-
-            &:focus {
-                @apply outline-none;
-            }
-
-            &,
-            option {
-                @apply text-gray-100;
-
-                &.online {
-                    @apply bg-green-500;
-                }
-
-                &.away {
-                    @apply bg-yellow-500 text-gray-800;
-                }
-
-                &.dnd {
-                    @apply bg-red-600;
-                }
-
-                &.offline {
-                    @apply bg-gray-700;
-                }
-            }
         }
 
         h4 {

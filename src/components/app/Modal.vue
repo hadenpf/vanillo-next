@@ -15,7 +15,7 @@
                 <slot name="content">This is a modal.</slot>
             </section>
             <footer v-show="!!this.$slots['footer'].length">
-                <slot name="footer"/>
+                <slot name="footer" />
             </footer>
         </div>
     </div>

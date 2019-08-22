@@ -6,19 +6,19 @@
                     :to="{
                         name: 'profile',
                         params: {
-                            username: user
+                            username: post.user
                         }
                     }"
                     class="rounded-full"
                 >
-                    <user-avatar :user="userObject" :showStatus="true" :removeColorOffline="false"/>
+                    <user-avatar :user="userObject" :showStatus="true" :removeColorOffline="false" />
                 </router-link>
                 <div class="post-meta-text">
                     <router-link
                         :to="{
                             name: 'profile',
                             params: {
-                                username: user
+                                username: post.user
                             }
                         }"
                     >
@@ -53,10 +53,10 @@
             </div>
         </div>
         <div class="post-content" :class="{ 'big-text': bigText }">
-            <span class="text" v-text="post.text" v-if="post.text"/>
+            <span class="text" v-text="post.text" v-if="post.text" />
             <div :class="{ 'combined': isCombined }">
                 <div class="embed">
-                    <slot name="embed"/>
+                    <slot name="embed" />
                 </div>
             </div>
             <div class="post-button-group mt-2">

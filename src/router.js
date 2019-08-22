@@ -27,8 +27,12 @@ export default new VueRouter({
             }
         },
         {
-            path: '*',
-            redirect: '/'
+            path: '/routes',
+            component: () => import('@/views/RoutesList')
+        },
+        {
+            path: '*'
+            // redirect: '/'
         }
     ]
 })

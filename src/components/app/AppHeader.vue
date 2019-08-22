@@ -2,6 +2,11 @@
     <nav>
         <div ref="header" class="header container">
             <div class="header-left">
+                <router-link to="/">
+                    <img src="@/assets/logo.png" @click="scrollTop()" />
+                </router-link>
+            </div>
+            <div class="header-main">
                 <div
                     class="search-bar-wrapper"
                     ref="search-wrapper"
@@ -14,7 +19,7 @@
                         class="search-bar"
                         :placeholder="search_placeholder"
                         v-model="query"
-                    >
+                    />
                     <button class="search-collapse-button" @click.stop="collapseSearch()">
                         <i class="search-collapse-icon fas fa-times"></i>
                     </button>
@@ -22,11 +27,6 @@
                         <i class="search-icon fas fa-search"></i>
                     </button>
                 </div>
-            </div>
-            <div class="header-main">
-                <router-link to="/">
-                    <img src="@/assets/logo.png" @click="scrollTop()">
-                </router-link>
             </div>
             <div class="header-right">
                 <!-- <app-button class="header-button signup">Sign up</app-button>
@@ -42,7 +42,7 @@ nav {
     @apply bg-white p-3 shadow-md fixed w-full z-40;
 
     .header {
-        @apply flex flex-col align-middle mx-auto px-2;
+        @apply flex flex-col align-middle mx-auto px-2 justify-between;
 
         min-height: theme("height.12");
 
@@ -60,102 +60,54 @@ nav {
                 }
             }
 
-            .header-main {
-                .search-bar-wrapper {
-                    &.open {
-                        @apply w-full;
+            > [class^="header-"],
+            > [class*=" header-"] {
+                @apply w-full;
 
-                        @screen md {
-                            @apply w-1/2;
-                        }
-                    }
+                @screen md {
+                    @apply w-1/3;
                 }
+            }
+        }
+
+        > [class^="header-"],
+        > [class*=" header-"] {
+            @apply w-full;
+
+            @screen sm {
+                @apply w-1/3;
             }
         }
 
         .header-left {
-            @apply flex items-center flex-shrink-0 w-full mb-2;
+            @apply flex flex-shrink-0 mb-2 justify-center;
 
             @screen sm {
-                @apply w-auto mb-0;
+                @apply mb-0;
             }
 
-            .search-bar-wrapper {
-                @apply flex align-middle h-8 w-8 my-auto bg-gray-200 rounded-full overflow-hidden cursor-pointer;
+            @screen md {
+                @apply justify-start;
+            }
 
-                transition: all 0.125s ease;
-
-                &.open {
-                    @apply w-1/2 cursor-text;
-
-                    .search-bar {
-                        @apply inline-block;
-                    }
-
-                    .search-collapse-button {
-                        @apply inline-block;
-
-                        @screen md {
-                            @apply hidden;
-                        }
-                    }
-                }
-
-                &.has-text {
-                    .search-collapse-button {
-                        @apply inline-block;
-                    }
-                }
-
-                .search-icon {
-                    @apply my-auto mr-3 ml-2;
-                }
-
-                .search-collapse-button {
-                    @apply py-1 px-2 cursor-pointer hidden;
-
-                    @screen md {
-                        @apply hidden;
-                    }
-                }
-
-                .search-bar {
-                    @apply bg-inherit h-full w-full pl-3 hidden;
-
-                    transition: all 0.125s ease;
-
-                    &:focus {
-                        @apply outline-none;
-                    }
-                }
-
-                @screen md {
-                    @apply w-1/2 cursor-text;
-
-                    .search-bar {
-                        @apply inline-block;
-                    }
-                }
+            a,
+            a img {
+                @apply h-10 my-auto;
             }
         }
 
         .header-main {
-            @apply w-full flex content-end justify-end py-2;
+            @apply flex content-end justify-end py-2;
 
             transition: all 0.125s ease;
 
             @screen sm {
                 @apply py-1;
             }
-
-            a,
-            a img {
-                @apply h-10 m-auto;
-            }
         }
 
         .header-right {
-            @apply flex flex-row align-bottom content-end justify-center w-full;
+            @apply flex flex-row align-bottom content-end justify-center;
 
             @screen sm {
                 @apply justify-end;
@@ -174,6 +126,68 @@ nav {
 
                 &.compose {
                     @apply bg-primary-600 text-gray-100;
+                }
+            }
+        }
+
+        .search-bar-wrapper {
+            @apply flex align-middle h-8 w-8 m-auto bg-gray-200 rounded-full overflow-hidden cursor-pointer;
+
+            transition: all 0.125s ease;
+
+            @screen md {
+                @apply cursor-text w-full;
+
+                .search-bar {
+                    @apply inline-block;
+                }
+            }
+
+            &.open {
+                @apply cursor-text w-full;
+
+                .search-bar {
+                    @apply inline-block;
+                }
+
+                .search-collapse-button {
+                    @apply inline-block;
+
+                    @screen md {
+                        @apply hidden;
+                    }
+                }
+            }
+
+            &.has-text {
+                .search-collapse-button {
+                    @apply inline-block;
+                }
+            }
+
+            .search-icon {
+                @apply my-auto mr-3 ml-2;
+            }
+
+            .search-collapse-button {
+                @apply py-1 px-2 cursor-pointer hidden;
+
+                @screen md {
+                    @apply hidden;
+                }
+            }
+
+            .search-bar {
+                @apply bg-inherit h-full w-full pl-3 hidden;
+
+                transition: all 0.125s ease;
+
+                @screen md {
+                    @apply inline-block;
+                }
+
+                &:focus {
+                    @apply outline-none;
                 }
             }
         }
@@ -206,6 +220,8 @@ export default {
             this.query = ''
         },
         submitSearch() {
+            this.expandSearch()
+
             const trimmedQuery = this.query.trim().replace(/\s{2,}/g, ' ')
 
             if(!trimmedQuery.length) { return }

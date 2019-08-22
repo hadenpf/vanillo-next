@@ -1,8 +1,9 @@
 <template>
     <div id="app" @keyup.esc="viewCompose(false)">
-        <site-header ref="appHeader" @open-compose="viewCompose(true)"/>
-        <compose-modal v-show="showCompose" @close="viewCompose(false)"/>
-        <router-view :style="topPadding"/>
+        <compose-modal v-show="showCompose" @close="viewCompose(false)" />
+        <app-header ref="appHeader" @open-compose="viewCompose(true)" />
+        <router-view :style="topPadding" />
+        <app-footer ref="appFooter" />
     </div>
 </template>
 
@@ -12,8 +13,14 @@
 @tailwind utilities;
 @tailwind screens;
 
-body {
-    @apply font-body bg-gray-100 text-gray-800;
+html,
+body,
+:root {
+    @apply font-body bg-gray-100 text-gray-800 flex w-full min-h-full m-0;
+}
+
+#app {
+    @apply flex mx-auto flex-col w-full min-h-full;
 }
 
 .card {
@@ -28,7 +35,8 @@ body {
 <script>
 export default {
     components: {
-        SiteHeader: () => import('./Header'),
+        AppHeader: () => import('./AppHeader'),
+        AppFooter: () => import('./AppFooter'),
         ComposeModal: () => import('@/components/content/ComposePost')
     },
     data() {
@@ -47,18 +55,7 @@ export default {
         }
     },
     mounted() {
-        this.$store.commit('cacheUser', {
-            id: 1,
-            name: 'Sock',
-            avatarUrl: 'https://cdn.discordapp.com/attachments/487853954185822208/592912660492976128/unknown.png',
-            status: 'online'
-        })
-        this.$store.commit('cacheUser', {
-            id: 2,
-            name: 'hando',
-            avatarUrl: 'https://cdn.discordapp.com/avatars/377638029008830466/e2362dfd4167c5b1189012b46ded3d92.png',
-            status: 'dnd'
-        })
+        
     }
 }
 </script>
